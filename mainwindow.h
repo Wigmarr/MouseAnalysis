@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include "paintscene.h"
 namespace Ui {
 class MainWindow;
 }
