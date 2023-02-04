@@ -14,4 +14,9 @@ void PaintScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     _currentPosition = event->scenePos();
 }
 
+void PaintScene::reset()
+{
+    this->clear();
+}
+
 PaintScene::~PaintScene(){}

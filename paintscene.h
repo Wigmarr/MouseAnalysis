@@ -9,13 +9,19 @@ class PaintScene : public QGraphicsScene
     Q_OBJECT
 public:
     PaintScene(QObject *parent = nullptr);
+
     ~PaintScene();
+
+signals:
+    void on_MouseMoved(int, int);
+public slots:
+    void reset();
 private:
     QPointF _currentPosition;
-
-private:
-//    void mousePressEvent(QGraphicsSceneMouseEvent * event);
+    int _pathLength;
     void mouseMoveEvent(QGraphicsSceneMouseEvent * event);
+
+
 };
 
 #endif // PAINTSCENE_H
