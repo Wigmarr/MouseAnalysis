@@ -6,9 +6,11 @@
 #include <QFileDialog>
 #include <QDebug>
 #include <QTimer>
+#include <QThread>
 #include <QSettings>
 #include <QFile>
 #include <QDateTime>
+#include "filesaver.h"
 #include "paintscene.h"
 
 namespace Ui {
@@ -32,21 +34,23 @@ private slots:
     void on_path_calculated(int);
 
 private:
-    Ui::MainWindow *ui;
-    QTimer *timer;
+    Ui::MainWindow * ui;
+    QTimer * timer;
+    QThread * saveThread;
     PaintScene * paintScene;
+    FileSaver * fileSaver;
     int timerInterval = 1000; // интервал в милисекундах
-    QString filePath;
     int path = 0;
     int posX;
     int posY;
-
+signals:
+    void pathChange(QString);
 private:
     void SetUI();
     void SetTimer();
     void SetSettings();
     void SetConnections();
-    void SavePathFile();
+    void SetFileSaver();
 
 };
 

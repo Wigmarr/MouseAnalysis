@@ -7,14 +7,24 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     SetUI();
     SetTimer();
+    SetFileSaver();
     SetSettings();
     SetConnections();
+
+}
+
+void MainWindow::SetFileSaver()
+{
+    saveThread = new QThread();
+    fileSaver = new FileSaver();
+    fileSaver->moveToThread(saveThread);
+    saveThread->start();
 }
 
 void MainWindow::SetSettings()
 {
     QSettings settings("config.ini", QSettings::IniFormat);
-    filePath = settings.value("path").toString();
+    QString filePath = settings.value("path").toString();
     timerInterval = settings.value("time").toInt();
     //если в настройках не задан путь к файлам, открывается диалог для установки пути
     if (filePath == "")
@@ -23,7 +33,7 @@ void MainWindow::SetSettings()
     }
     else
     {
-        ui->lbTimer->setText("Интервал: " + QString::number(double(timerInterval)/1000));
+        ui->lbFilePath->setText("Файлы пути: " + filePath);
     }
 
     // если в натсройках не задан интервал, открывается диалог для установки интервала
@@ -33,7 +43,7 @@ void MainWindow::SetSettings()
     }
     else
     {
-        ui->lbFilePath->setText("Файлы пути: " + filePath);
+        ui->lbTimer->setText("Интервал: " + QString::number(double(timerInterval)/1000));
     }
 }
 
@@ -42,6 +52,8 @@ void MainWindow::SetConnections()
     connect(paintScene, &PaintScene::mouse_moved, this, &MainWindow::on_coords_update);// обновление координат
     connect(timer, &QTimer::timeout, paintScene,&PaintScene::on_reset);// сообщение сцене о завершение таймера
     connect(paintScene, &PaintScene::path_calculated, this, &MainWindow::on_path_calculated);// обновление пути за интервал времени
+    connect(paintScene, &PaintScene::path_calculated, fileSaver, &FileSaver::on_save_file);
+    connect(this, &MainWindow::pathChange, fileSaver, &FileSaver::on_path_changed);
 }
 
 void MainWindow::SetUI()
@@ -87,20 +99,6 @@ void MainWindow::on_path_calculated(int pathLength)
     path = pathLength;
     ui->lbPath->setText("Пройденный путь: " + QString::number(path));
 
-    SavePathFile();
-}
-
-void MainWindow::SavePathFile()
-{
-    QDateTime datetime = QDateTime::currentDateTimeUtc();
-    // так как в windows нельзя в имени файла использовать ":", используется "."
-    QString fullFilePath = filePath + "/" + datetime.toString("dd.mm.yyyy hh.mm.ss") +".txt";
-    QFile file(fullFilePath);
-    file.open(QIODevice::WriteOnly);
-    QTextStream out(&file);
-    out << path;
-    file.close();
-
 }
 
 void MainWindow::on_coords_update(double x, double y)
@@ -113,15 +111,17 @@ void MainWindow::on_btSetPath_clicked()
 {
     // записать полученный путь в файл настроек
 
-    filePath = QFileDialog::getExistingDirectory(this,"Укажите путь",
+    QString filePath = QFileDialog::getExistingDirectory(this,"Укажите путь",
                             QCoreApplication::applicationDirPath(),QFileDialog::ShowDirsOnly);
     ui->lbFilePath->setText("Файлы пути: " + filePath);
     QSettings settings("config.ini", QSettings::IniFormat);
     settings.setValue("path", filePath);
+    emit pathChange(filePath);
 }
 
 MainWindow::~MainWindow()
 {
+    saveThread->quit();
     delete ui;
 }
 
