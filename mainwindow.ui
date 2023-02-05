@@ -26,18 +26,66 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="10" column="0" colspan="2">
-        <spacer name="verticalSpacer">
+       <item row="15" column="1">
+        <widget class="QPushButton" name="btStopTimer">
+         <property name="text">
+          <string>Остановить таймер</string>
+         </property>
+        </widget>
+       </item>
+       <item row="15" column="0">
+        <widget class="QPushButton" name="btStartTimer">
+         <property name="text">
+          <string>ЗапуститьТаймер</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0" colspan="2">
+        <spacer name="horizontalSpacer">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>20</width>
-           <height>40</height>
+           <width>40</width>
+           <height>20</height>
           </size>
          </property>
         </spacer>
+       </item>
+       <item row="13" column="0" colspan="2">
+        <widget class="QLabel" name="lbXPos">
+         <property name="text">
+          <string>X:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0" colspan="2">
+        <widget class="QLabel" name="lbFilePath">
+         <property name="maximumSize">
+          <size>
+           <width>211</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Файлы пути:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QLabel" name="lbTimer">
+         <property name="text">
+          <string>Интервал:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="14" column="0" colspan="2">
+        <widget class="QLabel" name="lbYPos">
+         <property name="text">
+          <string>Y:</string>
+         </property>
+        </widget>
        </item>
        <item row="1" column="0" colspan="2">
         <spacer name="horizontalSpacer_2">
@@ -52,79 +100,37 @@
          </property>
         </spacer>
        </item>
-       <item row="3" column="0" colspan="2">
+       <item row="9" column="0" colspan="2">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="5" column="0" colspan="2">
         <widget class="QPushButton" name="btSetTimer">
          <property name="text">
           <string>Задать интервал</string>
          </property>
         </widget>
        </item>
-       <item row="9" column="0" colspan="2">
-        <widget class="QPushButton" name="pushButton">
-         <property name="text">
-          <string>Остановить таймер</string>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="0" colspan="2">
+       <item row="12" column="0" colspan="2">
         <widget class="QLabel" name="lbPath">
          <property name="text">
           <string>Пройденный путь: </string>
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
-        <widget class="QPushButton" name="btLoadTimer">
-         <property name="text">
-          <string>Загрузить</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0" colspan="2">
-        <spacer name="horizontalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="13" column="0" colspan="2">
-        <widget class="QLabel" name="lbYPos">
-         <property name="text">
-          <string>Y:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0" colspan="2">
-        <widget class="QLabel" name="lbTimer">
-         <property name="text">
-          <string>Интервал:</string>
-         </property>
-        </widget>
-       </item>
        <item row="8" column="0" colspan="2">
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="btSetPath">
          <property name="text">
-          <string>ЗапуститьТаймер</string>
-         </property>
-        </widget>
-       </item>
-       <item row="12" column="0" colspan="2">
-        <widget class="QLabel" name="lbXPos">
-         <property name="text">
-          <string>X:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QPushButton" name="btSaveTimer">
-         <property name="text">
-          <string>Сохранить</string>
+          <string>Задать путь</string>
          </property>
         </widget>
        </item>

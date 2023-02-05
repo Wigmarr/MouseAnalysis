@@ -4,7 +4,11 @@
 #include <QMainWindow>
 #include <QInputDialog>
 #include <QFileDialog>
+#include <QDebug>
 #include <QTimer>
+#include <QSettings>
+#include <QFile>
+#include <QDateTime>
 #include "paintscene.h"
 
 namespace Ui {
@@ -21,11 +25,29 @@ public:
 
 private slots:
     void on_btSetTimer_clicked();
-    void on_timer_timeout();
+    void on_btSetPath_clicked();
+    void on_btStartTimer_clicked();
+    void on_coords_update(double, double);
+    void on_btStopTimer_clicked();
+    void on_path_calculated(int);
+
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
-    int timerInterval;
+    PaintScene * paintScene;
+    int timerInterval = 1000; // интервал в милисекундах
+    QString filePath;
+    int path = 0;
+    int posX;
+    int posY;
+
+private:
+    void SetUI();
+    void SetTimer();
+    void SetSettings();
+    void SetConnections();
+    void SavePathFile();
+
 };
 
 #endif // MAINWINDOW_H

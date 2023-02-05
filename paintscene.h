@@ -2,7 +2,9 @@
 #define PAINTSCENE_H
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
-
+#include <QVector2D>
+#include <QDebug>
+#include <QtMath>
 class PaintScene : public QGraphicsScene
 {
 
@@ -13,12 +15,13 @@ public:
     ~PaintScene();
 
 signals:
-    void on_MouseMoved(int, int);
+    void mouse_moved(double, double);
+    void path_calculated(int);
 public slots:
-    void reset();
+    void on_reset();
 private:
     QPointF _currentPosition;
-    int _pathLength;
+    double _pathLength = 0;
     void mouseMoveEvent(QGraphicsSceneMouseEvent * event);
 
 
